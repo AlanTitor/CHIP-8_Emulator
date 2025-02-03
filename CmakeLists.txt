@@ -1,0 +1,19 @@
+cmake_minimum_required(VERSION 3.31)
+set(CMAKE_CXX_STANDARD 23)
+
+set(CMAKE_CXX_FLAGS "/utf-8")
+set(CMAKE_C_FLAGS "/utf-8")
+
+project(CHIP_EMULATOR)
+
+find_package(SDL2 REQUIRED)
+
+set(HEADERS src/ChipEmu.h src/Platform.h)
+set(EXECT src/main.cpp src/ChipEmu.cpp src/Platform.cpp )
+
+
+add_executable(main ${EXECT} ${HEADERS})
+#target_include_directories(main PRIVATE SDL2/x86_64-w64-mingw32/include)
+target_include_directories(main PRIVATE ${SDL2_INCLUDE_DIRS})
+
+target_link_libraries(main SDL2::SDL2)
