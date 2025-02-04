@@ -6,7 +6,7 @@
 
 #undef main
 
-const int WIDTH = 800, HEIGHT = 600;
+const int WIDTH = 64, HEIGHT = 32;
 
 int main(int argc, char** argv)
 {
@@ -46,6 +46,5 @@ int main(int argc, char** argv)
 			platform.Update(chip8.video, videoPitch);
 		}
 	}
-
     return 0;
 }

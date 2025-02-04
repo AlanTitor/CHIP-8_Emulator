@@ -9,11 +9,17 @@ project(CHIP_EMULATOR)
 find_package(SDL2 REQUIRED)
 
 set(HEADERS src/ChipEmu.h src/Platform.h)
-set(EXECT src/main.cpp src/ChipEmu.cpp src/Platform.cpp )
+set(EXECT src/main.cpp src/ChipEmu.cpp src/Platform.cpp)
+set(CMAKE_PREFIX_PATH SDL2/cmake/sdl2-config.cmake)
+#set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} -mwindows)
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+
+include_directories(${SDL2_INCLUDE_DIRS})
 
 
 add_executable(main ${EXECT} ${HEADERS})
-#target_include_directories(main PRIVATE SDL2/x86_64-w64-mingw32/include)
-target_include_directories(main PRIVATE ${SDL2_INCLUDE_DIRS})
+target_include_directories(main PRIVATE SDL2/x86_64-w64-mingw32/include)
+#target_include_directories(main PRIVATE ${SDL2_INCLUDE_DIRS})
 
 target_link_libraries(main SDL2::SDL2)
