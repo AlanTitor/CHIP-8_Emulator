@@ -4,12 +4,10 @@
 #include <SDL2/SDL.h>
 
 
-class Platform
-{
-
+class Graphic{
 public:
-	Platform(char const* title, int windowWidth, int windowHeight, int textureWidth, int textureHeight);
-	~Platform();
+	Graphic(char const* title, int windowWidth, int windowHeight, int textureWidth, int textureHeight);
+	~Graphic();
 	void Update(void const* buffer, int pitch);
 	bool ProcessInput(uint8_t* keys);
 

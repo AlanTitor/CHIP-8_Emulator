@@ -1,12 +1,12 @@
 #include <iostream>
 #include <chrono>
 
-#include "Platform.h"
+#include "Graphic.h"
 #include "ChipEmu.h"
 
 #undef main
 
-const int WIDTH = 64, HEIGHT = 32;
+const int WindowWidth = 64, WindowHeight = 32;
 
 int main(int argc, char** argv)
 {
@@ -20,12 +20,12 @@ int main(int argc, char** argv)
 	int cycleDelay = std::stoi(argv[2]);
 	char const* romFilename = argv[3];
 
-	Platform platform("CHIP-8 Emulator", WIDTH * videoScale, HEIGHT * videoScale, WIDTH, HEIGHT);
+	Graphic platform("CHIP-8 Emulator", WindowWidth * videoScale, WindowHeight * videoScale, WindowWidth, WindowHeight);
 
 	ChipEmu chip8;
 	chip8.loadROM(romFilename);
 
-	int videoPitch = sizeof(chip8.video[0]) * WIDTH;
+	int videoPitch = sizeof(chip8.video[0]) * WindowWidth;
 
 	auto lastCycleTime = std::chrono::high_resolution_clock::now();
 	bool quit = false;

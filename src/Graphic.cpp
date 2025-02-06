@@ -1,21 +1,22 @@
-#include "Platform.h"
-#include<iostream>
+#include "Graphic.h"
+#include <iostream>
 
-Platform::Platform(char const *title, int windowWidth, int windowHeight, int textureWidth, int textureHeight)
+Graphic::Graphic(char const *title, int windowWidth, int windowHeight, int textureWidth, int textureHeight)
 {
 	SDL_Init(SDL_INIT_VIDEO);
 
-	window = SDL_CreateWindow(title, 0, 0, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, textureWidth, textureHeight);
-	if (!texture) {
-    	std::cerr << "SDL_CreateTexture failed: " << SDL_GetError() << "\n";
-	}	
+	if (!texture)
+	{
+		std::cerr << "SDL_CreateTexture failed: " << SDL_GetError() << "\n";
+	}
 }
 
-Platform::~Platform()
+Graphic::~Graphic()
 {
 	SDL_DestroyTexture(texture);
 	SDL_DestroyRenderer(renderer);
@@ -23,23 +24,26 @@ Platform::~Platform()
 	SDL_Quit();
 }
 
-void Platform::Update(void const *buffer, int pitch)
-{	
-	if (!texture || !renderer) {
-        std::cerr << "Texture or renderer not initialized.\n";
-        return;
-    }
-    if (!buffer) {
-        std::cerr << "Buffer is null!\n";
-        return;
-    }
-    // Логирование значений для отладки
-    //std::cout << "Updating texture with pitch: " << pitch << "\n";
-    
-    if (SDL_UpdateTexture(texture, nullptr, buffer, pitch) != 0) {
-        std::cerr << "SDL_UpdateTexture failed: " << SDL_GetError() << "\n";
-        return;
-    }
+void Graphic::Update(void const *buffer, int pitch)
+{
+	if (!texture || !renderer)
+	{
+		std::cerr << "Texture or renderer not initialized.\n";
+		return;
+	}
+	if (!buffer)
+	{
+		std::cerr << "Buffer is null!\n";
+		return;
+	}
+	// Логирование значений для отладки
+	// std::cout << "Updating texture with pitch: " << pitch << "\n";
+
+	if (SDL_UpdateTexture(texture, nullptr, buffer, pitch) != 0)
+	{
+		std::cerr << "SDL_UpdateTexture failed: " << SDL_GetError() << "\n";
+		return;
+	}
 
 	SDL_UpdateTexture(texture, nullptr, buffer, pitch);
 	SDL_RenderClear(renderer);
@@ -47,7 +51,7 @@ void Platform::Update(void const *buffer, int pitch)
 	SDL_RenderPresent(renderer);
 }
 
-bool Platform::ProcessInput(uint8_t *keys)
+bool Graphic::ProcessInput(uint8_t *keys)
 {
 	bool quit = false;
 
@@ -276,10 +280,5 @@ bool Platform::ProcessInput(uint8_t *keys)
 		break;
 		}
 	}
-
 	return quit;
 }
-
-//SDL_Window *window{};
-//SDL_Renderer *renderer{};
-//SDL_Texture *texture{};
