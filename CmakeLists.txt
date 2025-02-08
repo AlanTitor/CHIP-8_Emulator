@@ -9,6 +9,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_DEBUG "-s")
 set(CMAKE_CXX_FLAGS_DEBUG "-c")
 
+
 find_package(SDL2 REQUIRED)
 
 #Variable to find files and libs
